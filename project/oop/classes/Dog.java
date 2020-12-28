@@ -11,4 +11,12 @@ public class Dog {
             }
         }
     }
+
+    public int ovMethod(int num){
+        return num;
+    }
+
+    public double ovMethod(double num){
+        return num;
+    }
 }
