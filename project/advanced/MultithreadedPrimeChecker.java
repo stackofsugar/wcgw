@@ -1,11 +1,9 @@
 import java.math.BigInteger;
 import java.util.Scanner;
+import java.util.concurrent.RecursiveTask;
 
 class MultithreadedPrimeChecker {
     public static void main(String[] argv){
-        final BigInteger THREAD_THRESHOLD = Big("15000000");
-        final byte THREAD_LIMIT = 8;
-        final BigInteger THREAD_MAX_GOOD = Big("120000000");
         boolean is_done = false;
 
         while(!is_done){
@@ -35,33 +33,52 @@ class MultithreadedPrimeChecker {
             scan.close();
             System.out.println("Your input is " + input_val);
             // Computation section
-                // Thread count decider
-            final byte THREAD_COUNT;
-            if(input_val.compareTo(THREAD_MAX_GOOD) <= 0){
+            final byte THREAD_COUNT = (byte)Runtime.getRuntime().availableProcessors();
 
-            }
-            else {
-                THREAD_COUNT = 8;
-            }
         }
     }
 
     static BigInteger Big(String value){
         return new BigInteger(value);
     }
+}
 
-    static boolean numberValidate(String input){
-        boolean is_healthy = true;
-        for(int i = 0; i < input.length(); i++){
+class Worker extends RecursiveTask<Boolean> {
+    private static final long serialVersionUID = -7470106627408756453L;
+    private final BigInteger VALUE_THRESHOLD = Big("15000000");
+    private final BigInteger VALUE_MAX_GOOD = Big("120000000");
 
-        }
+    private byte NUM_THREADS;
+    private BigInteger input;
+    private BigInteger top_bound;
+    private BigInteger toe_bound;
 
-        if(is_healthy){
-            return true;
-        }
-        else {
-            return false;
-        }
+    Worker(BigInteger input, byte NUM_THREADS){
+        this.NUM_THREADS = NUM_THREADS;
+        this.input = input;
     }
 
+    protected Boolean compute() {
+        if(NUM_THREADS == 1){
+
+        }
+        else {
+
+        }
+
+        return null;
+    }
+    
+    static BigInteger Big(String value){
+        return new BigInteger(value);
+    }
+
+    static Boolean isPrime(BigInteger number, BigInteger topBound, BigInteger toeBound){
+        for(var i = toeBound; i.compareTo(topBound) < 0; i = i.add(BigInteger.ONE)){
+            if((number.mod(i)).equals(BigInteger.ZERO)){
+                return false;
+            }
+        }
+        return true;
+    }
 }
